@@ -6,6 +6,8 @@ import express from "express";
 import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { HelloResolver } from "./resolvers/hello";
+import { PostResolver } from "./resolvers/post";
+import "reflect-metadata";
 
 //   Add stuff with this code below
 //   const post = orm.em.create(Post, { title: "my second post" });
@@ -21,9 +23,10 @@ const main = async () => {
   const app = express();
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
-      resolvers: [HelloResolver],
+      resolvers: [HelloResolver, PostResolver],
       validate: false,
     }),
+    context: () => ({ em: orm.em }),
   });
 
   apolloServer.applyMiddleware({ app });
