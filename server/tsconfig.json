@@ -32,6 +32,6 @@
   ],
   "include": [
     "./src/**/*.tsx",
-    "./src/**/*.ts"
+    "./src/**/*.ts", "mikro-orm.config.ts"
   ]
 }
