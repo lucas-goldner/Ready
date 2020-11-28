@@ -3,6 +3,9 @@ import { __prod__ } from "./constants";
 import { Post } from "./entities/Post";
 import mikroConfig from "./mikro-orm.config";
 import express from "express";
+import { ApolloServer } from "apollo-server-express";
+import { buildSchema } from "type-graphql";
+import { HelloResolver } from "./resolvers/hello";
 
 //   Add stuff with this code below
 //   const post = orm.em.create(Post, { title: "my second post" });
@@ -16,9 +19,15 @@ const main = async () => {
   const orm = await MikroORM.init(mikroConfig);
   await orm.getMigrator().up();
   const app = express();
-  app.get("/", (_, res) => {
-    res.send("hello");
+  const apolloServer = new ApolloServer({
+    schema: await buildSchema({
+      resolvers: [HelloResolver],
+      validate: false,
+    }),
   });
+
+  apolloServer.applyMiddleware({ app });
+
   app.listen(4210, () => {
     console.log("server started on localhost:4210");
   });
