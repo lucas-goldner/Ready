@@ -69,7 +69,17 @@ export class UserResolver {
       username: options.username,
       password: hashedPassword,
     });
-    await em.persistAndFlush(user);
+    try {
+      await em.persistAndFlush(user);
+    } catch (err) {
+      if (err.code === "23505") {
+        return {
+          errors: [{ field: "username", message: "username already taken" }],
+        };
+      }
+      console.log("message: ", err.message);
+    }
+
     return { user };
   }
 
