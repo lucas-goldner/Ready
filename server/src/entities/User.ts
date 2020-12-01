@@ -22,4 +22,7 @@ export class User {
 
   @Property({ type: "text" })
   password!: string;
+
+  @Property({ type: "text", unique: true })
+  email!: string;
 }
