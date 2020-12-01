@@ -1733,12 +1733,20 @@
   dependencies:
     "@types/node" "*"
 
-"@urql/core@^1.15.1":
+"@urql/core@>=1.15.2", "@urql/core@^1.15.1":
   version "1.15.2"
   resolved "https://registry.yarnpkg.com/@urql/core/-/core-1.15.2.tgz#4f9726c73290f81baa95fab95b42b96af8f52718"
   integrity sha512-DY0eOEPIOzNLjnVE+lXZpTxXpE94MxuZC75wC3wnDgW8q1ZMfHt7wKjk+5/Pi82MoF27fALwCUEKAm7Qfc8YIw==
   dependencies:
     "@graphql-typed-document-node/core" "^3.1.0"
+    wonka "^4.0.14"
+
+"@urql/exchange-graphcache@^3.2.0":
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/@urql/exchange-graphcache/-/exchange-graphcache-3.2.0.tgz#f373b8521b4505ec973028e70320cb1b468b299d"
+  integrity sha512-AgiRbvDr+oqredzuKLmy7nzbU44sEI7gi9altoWfcbOJUkIpF803FAj/SNhOCnc3Y5NzXgKLmBqBt6ACnlA4SQ==
+  dependencies:
+    "@urql/core" ">=1.15.2"
     wonka "^4.0.14"
 
 "@webassemblyjs/ast@1.9.0":
