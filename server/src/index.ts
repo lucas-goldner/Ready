@@ -33,7 +33,6 @@ const main = async () => {
     synchronize: true,
     entities: [User, Post],
   });
-  conn.migrations;
 
   const app = express();
 
