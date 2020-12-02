@@ -14,9 +14,8 @@ import { EntityManager } from "@mikro-orm/postgresql";
 import { COOKIE_NAME, FORGET_PASSWORD_PREFIX } from "../constants";
 import { validateRegister } from "../utils/validateRegister";
 import { UsernamePasswordInput } from "./UsernamePasswordInput";
-import { sendEmail } from "src/utils/sendEmails";
+import { sendEmail } from "../utils/sendEmails";
 import { v4 } from "uuid";
-import { RedisClient } from "redis";
 
 @ObjectType()
 class FieldError {
