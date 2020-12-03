@@ -32,9 +32,12 @@ const main = async () => {
     password: "lol123",
     logging: true,
     synchronize: true,
-    // migrations: [path.join(__dirname, "./migrations/*")],
+    migrations: [path.join(__dirname, "./migrations/*")],
     entities: [User, Post],
   });
+
+  // await Post.delete({});
+  // await conn.runMigrations();
 
   const app = express();
 
