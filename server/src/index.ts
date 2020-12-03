@@ -14,6 +14,7 @@ import cors from "cors";
 import { createConnection } from "typeorm";
 import { Post } from "./entities/Post";
 import { User } from "./entities/User";
+import path from "path";
 
 //   Add stuff with this code below
 //   const post = orm.em.create(Post, { title: "my second post" });
@@ -31,6 +32,7 @@ const main = async () => {
     password: "lol123",
     logging: true,
     synchronize: true,
+    // migrations: [path.join(__dirname, "./migrations/*")],
     entities: [User, Post],
   });
 
