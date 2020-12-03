@@ -27,18 +27,20 @@ export class PostResolver {
   @Query(() => [Post])
   async posts(
     @Arg("limit") limit: number,
-    @Arg("cursor", () => String, { nullable: true }) cursor: string
+    @Arg("cursor", () => String, { nullable: true }) cursor: string | null
   ): Promise<Post[]> {
     const realLimit = Math.min(50, limit);
-    return (
-      getConnection()
-        .getRepository(Post)
-        .createQueryBuilder("p")
-        // .where("user.id = :id", { id: 1 })
-        .orderBy('"createdAt"', "DESC")
-        .take(realLimit)
-        .getMany()
-    );
+    const qb = getConnection()
+      .getRepository(Post)
+      .createQueryBuilder("p")
+      .orderBy('"createdAt"', "DESC")
+      .take(realLimit);
+
+    if (cursor) {
+      qb.where('"createdAt" < :cursor', { cursor: new Date(parseInt(cursor)) });
+    }
+
+    return qb.getMany();
   }
 
   @Query(() => Post, { nullable: true })
