@@ -12,6 +12,7 @@ import {
   UseMiddleware,
 } from "type-graphql";
 import { Post } from "../entities/Post";
+import { getConnection } from "typeorm";
 
 @InputType()
 class PostInput {
@@ -24,8 +25,20 @@ class PostInput {
 @Resolver()
 export class PostResolver {
   @Query(() => [Post])
-  async posts(): Promise<Post[]> {
-    return Post.find();
+  async posts(
+    @Arg("limit") limit: number,
+    @Arg("cursor", () => String, { nullable: true }) cursor: string
+  ): Promise<Post[]> {
+    const realLimit = Math.min(50, limit);
+    return (
+      getConnection()
+        .getRepository(Post)
+        .createQueryBuilder("p")
+        // .where("user.id = :id", { id: 1 })
+        .orderBy('"createdAt"', "DESC")
+        .take(realLimit)
+        .getMany()
+    );
   }
 
   @Query(() => Post, { nullable: true })
